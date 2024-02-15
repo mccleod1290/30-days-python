@@ -66,3 +66,8 @@ if name == "main":: This line checks if the script is being run directly (as opp
 url = input("Enter the URL to perform the HTTP GET request: "): If the script is being run directly, this line prompts the user to enter the URL to which they want to perform the HTTP GET request, and it stores the inputted URL in the variable url.
 
 perform_request(url): This line calls the perform_request function, passing the URL entered by the user as an argument. This initiates the process of sending an HTTP GET request to the specified URL
+
+Further reading -
+
+1. https://developer.vonage.com/en/blog/3-ways-to-make-http-calls-with-python-requests-beginner-to-advanced
+2. https://www.digitalocean.com/community/tutorials/python-http-client-request-get-post
