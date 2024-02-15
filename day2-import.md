@@ -5,16 +5,23 @@
 This is a simple Python script that makes it easy to submit HTTP requests. You can use command-line arguments to set parameters, and verbose output is one of the options. This script is a useful addition to any toolkit, especially it helped me to understand a how `http` requests work in python, and how to leverage `requests` module to create an `http request`
 
 ```python
-import sys
 import requests
 
-def send(name):
-    response = requests.get("http://httpbin.org/json")
-    return response.json() if response.status_code == 200 else "There was an error"
+def perform_request(url):
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            print("Request successful!")
+            print("Response content:")
+            print(response.text)
+        else:
+            print(f"Error: Status code {response.status_code}")
+    except requests.exceptions.RequestException as e:
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
-    name = sys.argv[1] if len(sys.argv) > 1 else "Unknown"
-    print(send(name))
+    url = input("Enter the URL to perform the HTTP GET request: ")
+    perform_request(url)
 
 ```
 
@@ -30,18 +37,32 @@ __name__: Python has a unique built-in variable called this. "__main__" is the s
 
 ### Let's understand the code line by line
 
-import sys: This imports the sys module, which provides access to some variables used or maintained by the Python interpreter and to functions that interact with the interpreter. We'll use it to access command-line arguments.
+import requests: This line imports the requests module, which provides functions for making HTTP requests in Python.
 
-import requests: This imports the requests module, which allows us to send HTTP requests easily.
+def perform_request(url): This line defines a function named perform_request that takes a single argument url. This function will be used to perform an HTTP GET request to the specified URL.
 
-def send(name):: This defines a function named send that takes one argument, name.
+try:: This line starts a try block, indicating that the code inside it will be executed, and any exceptions that occur will be caught by the corresponding except block.
 
-response = requests.get("http://httpbin.org/json"): This line sends an HTTP GET request to the URL "http://httpbin.org/json" using the requests library and assigns the response object to the variable response.
+response = requests.get(url): This line sends an HTTP GET request to the URL specified by the url argument using the requests.get() function. The response object returned by this function is assigned to the variable response.
 
-return response.json() if response.status_code == 200 else "There was an error": This line checks if the status code of the response is 200 (which indicates a successful request). If it is, it returns the JSON content of the response using the .json() method. Otherwise, it returns the string "There was an error".
+if response.status_code == 200:: This line checks if the status code of the response is 200, which indicates a successful HTTP request.
 
-if __name__ == "__main__":: This is a Python idiom that checks if the script is being run directly by the Python interpreter (as opposed to being imported into another script). If it is being run directly, the code block below is executed.
+print("Request successful!"): If the status code is 200, this line prints a success message indicating that the request was successful.
 
-name = sys.argv[1] if len(sys.argv) > 1 else "Unknown": This line gets the first command-line argument provided when running the script (sys.argv[0] is the script name itself). If there are command-line arguments (len(sys.argv) > 1), it assigns the first argument to the variable name; otherwise, it defaults to "Unknown".
+print("Response content:"): This line prints a message indicating that the content of the response will be printed next.
 
-print(send(name)): This line calls the send function with the name as an argument and prints the result
+print(response.text): This line prints the content of the response using response.text, which contains the response body.
+
+else:: If the status code is not 200, this line indicates the start of the else block, which executes when the condition in the if statement is not met.
+
+print(f"Error: Status code {response.status_code}"): This line prints an error message indicating the status code returned by the server.
+
+except requests.exceptions.RequestException as e:: This line starts an except block, which catches any exceptions of type RequestException that occur within the try block.
+
+print(f"Error: {e}"): If an exception occurs, this line prints an error message indicating the specific exception that occurred.
+
+if name == "main":: This line checks if the script is being run directly (as opposed to being imported as a module).
+
+url = input("Enter the URL to perform the HTTP GET request: "): If the script is being run directly, this line prompts the user to enter the URL to which they want to perform the HTTP GET request, and it stores the inputted URL in the variable url.
+
+perform_request(url): This line calls the perform_request function, passing the URL entered by the user as an argument. This initiates the process of sending an HTTP GET request to the specified URL
