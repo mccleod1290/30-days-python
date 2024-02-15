@@ -67,7 +67,7 @@ url = input("Enter the URL to perform the HTTP GET request: "): If the script is
 
 perform_request(url): This line calls the perform_request function, passing the URL entered by the user as an argument. This initiates the process of sending an HTTP GET request to the specified URL
 
-Further reading -
+### Further reading -
 
 1. https://developer.vonage.com/en/blog/3-ways-to-make-http-calls-with-python-requests-beginner-to-advanced
 2. https://www.digitalocean.com/community/tutorials/python-http-client-request-get-post
